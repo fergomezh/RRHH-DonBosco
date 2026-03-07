@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="RRHH-DonBosco:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/RRHH_DonBosco_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="RRHH-DonBosco" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1" />
+          <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.0.33" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.21.9" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="RRHH-DonBosco/web/Web" />
+      <element id="javaee-facet-resources" facet="RRHH-DonBosco/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>
