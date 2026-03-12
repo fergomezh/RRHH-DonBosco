@@ -1,11 +1,14 @@
 package com.udb.rrhhdonbosco.util;
-
+import java.util.regex.Pattern;
 /*
  * Clase utilitaria con métodos de validación reutilizables en toda la aplicación.
  * Centraliza las reglas de validación del lado del servidor.
  */
 public class Validador {
 
+    private static final String EMAIL_VALIDADOR="^[A-Za-z0-9+_.-]+@(.+)$";
+    private static final String DUI_CONSTITUCION="^[0-9]{8}-[0-9]{1}$";
+  
     private Validador() {}
 
     /*
@@ -67,4 +70,10 @@ public class Validador {
     public static boolean esFechaValida(String fecha) {
         return fecha != null && fecha.matches("^\\d{4}-\\d{2}-\\d{2}$");
     }
+
+    //Metodo para validar ingreso de Documento Unico de Identidad DUI
+    public static boolean validarCargo(String dui) {
+        if (dui==null) return false;
+        return dui.matches(DUI_CONSTITUCION);
+        }
 }

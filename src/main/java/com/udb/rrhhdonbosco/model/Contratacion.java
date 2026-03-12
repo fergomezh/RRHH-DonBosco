@@ -4,69 +4,68 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Contratacion {
-    private Integer idContratacion;
-    private Integer idDepartamento;
-    private Integer idEmpleado;
-    private Integer idCargo;
-    private Integer idTipoContratacion;
+    private int idContratacion;
+    private int idDepartamento;
+    private int idEmpleado;
+    private int idCargo;
+    private int idtipoContratacion;
     private LocalDate fechaContratacion;
     private BigDecimal salario;
-    private Boolean estado;
+    private boolean estado;
 
-    // Constructores
     public Contratacion() {}
 
-    public Contratacion(Integer idDepartamento, Integer idEmpleado, Integer idCargo, 
-                       Integer idTipoContratacion, LocalDate fechaContratacion, 
-                       BigDecimal salario, Boolean estado) {
+    public Contratacion(int idContratacion, int idDepartamento, int idEmpleado, int idCargo,
+                        int idtipoContratacion,
+                        LocalDate fechaContratacion, BigDecimal salario, boolean estado) {
+        this.idContratacion = idContratacion;
         this.idDepartamento = idDepartamento;
         this.idEmpleado = idEmpleado;
         this.idCargo = idCargo;
-        this.idTipoContratacion = idTipoContratacion;
+        this.idtipoContratacion = idtipoContratacion;
         this.fechaContratacion = fechaContratacion;
         this.salario = salario;
         this.estado = estado;
     }
 
-    // Getters y Setters
-    public Integer getIdContratacion() {
+    public int getIdContratacion() {
         return idContratacion;
     }
 
-    public void setIdContratacion(Integer idContratacion) {
+    public void setIdContratacion(int idContratacion) {
         this.idContratacion = idContratacion;
     }
 
-    public Integer getIdDepartamento() {
+    public int getIdDepartamento() {
         return idDepartamento;
     }
 
-    public void setIdDepartamento(Integer idDepartamento) {
+    public void setIdDepartamento(int idDepartamento) {
         this.idDepartamento = idDepartamento;
     }
 
-    public Integer getIdEmpleado() {
+    public int getIdEmpleado() {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(Integer idEmpleado) {
+    public void setIdEmpleado(int idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 
-    public Integer getIdCargo() {
+    public int getIdCargo() {
         return idCargo;
     }
 
-    public void setIdCargo(Integer idCargo) {
+    public void setIdCargo(int idCargo) {
         this.idCargo = idCargo;
     }
 
-    public Integer getIdTipoContratacion() {
-        return idTipoContratacion;
+    public int getIdtipoContratacion() {
+        return idtipoContratacion;
     }
 
-    public void setIdTipoContratacion(Integer idTipoContratacion) {
-        this.idTipoContratacion = idTipoContratacion;
+    public void setIdtipoContratacion(int idtipoContratacion) {
+        this.idtipoContratacion = idtipoContratacion;
     }
 
     public LocalDate getFechaContratacion() {

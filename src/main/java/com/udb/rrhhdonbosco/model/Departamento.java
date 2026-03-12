@@ -5,6 +5,14 @@ package com.udb.rrhhdonbosco.model;
  * Mapea la tabla 'Departamento' de la base de datos.
  */
 public class Departamento {
+    private int idDepartamento;
+    private String nombreDepartamento;
+    private String descripcionDepartamento;
+
+   public Departamento() {}
+
+    public Departamento(int idDepartamento, String nombreDepartamento,
+                        String descripcionDepartamento) {
 
     /* Identificador único del departamento */
     private int idDepartamento;
@@ -51,6 +59,7 @@ public class Departamento {
     public void setDescripcionDepartamento(String descripcionDepartamento) {
         this.descripcionDepartamento = descripcionDepartamento;
     }
+}
 
     @Override
     public String toString() {
