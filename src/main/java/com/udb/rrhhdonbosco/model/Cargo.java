@@ -2,50 +2,46 @@ package com.udb.rrhhdonbosco.model;
 
 public class Cargo {
     private int idCargo;
-    private String cargo;
-    private String descripcionCargo;
-    private boolean jefatura;
-
-
-    public Cargo() {}
-
-    public Cargo(int id, String cargo, String descripcion,
-                 boolean jefatura) {
-        this.idCargo = id;
-        this.cargo = cargo;
-        this.descripcionCargo = descripcion;
-        this.jefatura = jefatura;
+    private String cargoNombre;
+    private String cargoDescripcion;
+    private boolean cargoJefatura;
+    
+    public Cargo(){}
+    
+    public Cargo(String cargoNombre, String cargoDescripcion, boolean cargoJefatura){
+        this.cargoNombre = cargoNombre;
+        this.cargoDescripcion =  cargoDescripcion;
+        this.cargoJefatura = cargoJefatura;
     }
-
-    public int getIdCargo() {
+    
+    public int getIdCargo(){
         return idCargo;
     }
-
-    public String getCargo() {
-        return cargo;
+    public String getCargoNombre(){
+        return cargoNombre;
     }
-
-    public String getDescripcionCargo() {
-        return descripcionCargo;
+    
+    public String getCargoDescripcion(){
+        return cargoDescripcion;
     }
-
-    public boolean isJefatura() {
-        return jefatura;
+    
+    public boolean getCargoJefatura() {
+        return cargoJefatura;
     }
-
-    public void setIdCargo(int idCargo) {
+    
+    public void setIdCargo(int idCargo){
         this.idCargo = idCargo;
     }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    
+    public void setCargoNombre(String cargoNombre){
+        this.cargoNombre = cargoNombre;
     }
-
-    public void setDescripcionCargo(String descripcionCargo) {
-        this.descripcionCargo = descripcionCargo;
+    
+    public void setCargoDescripcion(String cargoDescripcion){
+        this.cargoDescripcion = cargoDescripcion;
     }
-
-    public void setJefatura(boolean jefatura) {
-        this.jefatura = jefatura;
+    
+    public void setCargoJefatura(boolean cargoJefatura){
+        this.cargoJefatura = cargoJefatura;
     }
 }
