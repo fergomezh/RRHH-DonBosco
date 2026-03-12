@@ -14,4 +14,13 @@
         <url-pattern>/contrataciones/*</url-pattern>
     </servlet-mapping>
 
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jspf</url-pattern>
+            <el-ignored>false</el-ignored>
+            <page-encoding>UTF-8</page-encoding>
+            <is-xml>false</is-xml>
+        </jsp-property-group>
+    </jsp-config>
+
 </web-app>

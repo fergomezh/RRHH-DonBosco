@@ -83,7 +83,7 @@ public class ContratacionServlet extends HttpServlet {
 
                 // Crear objeto Contratacion
                 Contratacion contratacion = new Contratacion(
-                        idDepartamento, idEmpleado, idCargo, idTipoContratacion,
+                        0, idDepartamento, idEmpleado, idCargo, idTipoContratacion,
                         fechaContratacion, salario, estado
                 );
 

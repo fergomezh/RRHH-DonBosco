@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-@WebServlet("/EmpleadoServlet")
+@WebServlet("/empleados")
 
 
 public class EmpleadoServlet  extends HttpServlet {
@@ -23,41 +23,41 @@ public class EmpleadoServlet  extends HttpServlet {
                 throws ServletException, IOException {
 
             String accion = request.getParameter("accion");
-            if (accion == null) accion = "Listar";
+            if (accion == null) accion = "listar";
 
             switch (accion) {
-                case "Listar":
+                case "listar":
                     List<Empleado> lista = dao.findAll();
                     request.setAttribute("lista", lista);
-                    request.getRequestDispatcher("views/empleados/lista.jsp").forward(request, response);
+                    request.getRequestDispatcher("/views/empleados/lista.jsp").forward(request, response);
                     break;
 
-                case "Nuevo":
-                    request.getRequestDispatcher("views/empleados/formulario.jsp").forward(request, response);
+                case "nuevo":
+                    request.getRequestDispatcher("/views/empleados/formulario.jsp").forward(request, response);
                     break;
 
-                case "Insertar":
+                case "insertar":
                     dao.insert(registrarDatos(request));
-                    response.sendRedirect("EmpleadoServlet?accion=Listar");
+                    response.sendRedirect(request.getContextPath() + "/empleados?accion=listar");
                     break;
 
-                case "Editar":
-                    // 1. Obtener el ID que viene de la tabla
+                case "editar":
                     int idEdit = Integer.parseInt(request.getParameter("id"));
-                    request.getRequestDispatcher("views/empleados/formulario.jsp").forward(request, response);
+                    request.setAttribute("idEmpleado", idEdit);
+                    request.getRequestDispatcher("/views/empleados/formulario.jsp").forward(request, response);
                     break;
 
-                case "Actualizar":
+                case "actualizar":
                     Empleado editado = registrarDatos(request);
                     editado.setIdEmpleado(Integer.parseInt(request.getParameter("id")));
                     dao.update(editado);
-                    response.sendRedirect("EmpleadoServlet?accion=Listar");
+                    response.sendRedirect(request.getContextPath() + "/empleados?accion=listar");
                     break;
 
-                case "Eliminar":
+                case "eliminar":
                     int idEliminar = Integer.parseInt(request.getParameter("id"));
                     dao.delete(idEliminar);
-                    response.sendRedirect("EmpleadoServlet?accion=Listar");
+                    response.sendRedirect(request.getContextPath() + "/empleados?accion=listar");
                     break;
             }
         }

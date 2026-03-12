@@ -10,24 +10,10 @@ public class Departamento {
     private String descripcionDepartamento;
 
    public Departamento() {}
-
-    public Departamento(int idDepartamento, String nombreDepartamento,
-                        String descripcionDepartamento) {
-
-    /* Identificador único del departamento */
-    private int idDepartamento;
-
-    /* Nombre del departamento */
-    private String nombreDepartamento;
-
-    /* Descripción del departamento */
-    private String descripcionDepartamento;
-
-    public Departamento() {}
-
     /*
      * Constructor completo
      */
+
     public Departamento(int idDepartamento, String nombreDepartamento, String descripcionDepartamento) {
         this.idDepartamento = idDepartamento;
         this.nombreDepartamento = nombreDepartamento;
@@ -59,8 +45,6 @@ public class Departamento {
     public void setDescripcionDepartamento(String descripcionDepartamento) {
         this.descripcionDepartamento = descripcionDepartamento;
     }
-}
-
     @Override
     public String toString() {
         return "Departamento{id=" + idDepartamento +

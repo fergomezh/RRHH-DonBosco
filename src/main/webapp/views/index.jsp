@@ -1,6 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<jsp:include page="/WEB-INF/jspf/header.jspf" />
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
 <c:if test="${not empty stats}">
   <div class="row g-3">
@@ -24,4 +24,4 @@
   <p class="text-muted mt-3">Corte: ${stats.corte}</p>
 </c:if>
 
-<jsp:include page="/WEB-INF/jspf/footer.jspf" />
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

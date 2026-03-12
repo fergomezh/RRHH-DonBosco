@@ -13,27 +13,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/cargos/*")
+@WebServlet("/cargos")
 @MultipartConfig
 public class CargoServlet extends HttpServlet {
 
-    private String action(HttpServletRequest request) {
-        String a = request.getPathInfo();
-        return (a == null) ? "/" : a;
+    private String accion(HttpServletRequest request) {
+        String a = request.getParameter("accion");
+        return (a == null) ? "listar" : a;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String a = action(request);
-
-        switch (a) {
-            case "/":
+        switch (accion(request)) {
+            case "listar":
                 listarCargos(request, response);
                 break;
 
-            case "/nuevo":
+            case "nuevo":
                 mostrarFormulario(request, response);
                 break;
 
@@ -47,17 +45,16 @@ public class CargoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String a = action(request);
-
-        switch (a) {
-            case "/nuevo":
+        switch (accion(request)) {
+            case "guardar":
                 guardarCargo(request, response);
                 break;
-            case "/editar":
+
+            case "editar":
                 editarCargo(request, response);
                 break;
 
-            case "/eliminar":
+            case "eliminar":
                 eliminarCargo(request, response);
                 break;
 
@@ -97,7 +94,7 @@ public class CargoServlet extends HttpServlet {
             CargoDAO dao = new CargoDAO();
             dao.agregarCargo(nuevoCargo);
 
-            response.sendRedirect(request.getContextPath() + "/cargos/");
+            response.sendRedirect(request.getContextPath() + "/cargos?accion=listar");
         } catch (Exception e) {
             request.setAttribute("ok", false);
         }

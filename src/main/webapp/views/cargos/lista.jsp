@@ -52,7 +52,7 @@
 
                 async function eliminarCargo(id) {
                     try {
-                        const response = await axios.post("/RRHH-DonBosco/cargos/eliminar", new URLSearchParams({
+                        const response = await axios.post("${pageContext.request.contextPath}/cargos?accion=eliminar", new URLSearchParams({
                             id: id
                         }));
                         iziToast.success({
@@ -74,7 +74,7 @@
                         if (cargoJefatura) {
                             params.append("cargoJefatura", "on");
                         }
-                        const {data} = await axios.post("/RRHH-DonBosco/cargos/editar", params);
+                        const {data} = await axios.post("${pageContext.request.contextPath}/cargos?accion=editar", params);
                         iziToast.success({
                             title: 'Actualizado',
                             message: 'Se actualizo el cargo con id: ' + id
@@ -297,7 +297,7 @@
                     <i class="fa-whiteboard fa-semibold fa-list-ol"></i> Total cargos: <span id="total">${cargos.size()}</span>
                 </div>
                 <div>
-                    <a href="/RRHH-DonBosco/cargos/nuevo">
+                    <a href="${pageContext.request.contextPath}/cargos?accion=nuevo">
                         <i class="fa-whiteboard fa-semibold fa-user-plus"></i> agregar nuevo cargo
                     </a>
                 </div>

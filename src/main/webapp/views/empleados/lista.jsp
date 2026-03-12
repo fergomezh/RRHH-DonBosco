@@ -14,7 +14,7 @@
 </head>
 <body class="container mt-5">
 <h2>Gestión de Empleados</h2>
-<a href="EmpleadoServlet?accion=Nuevo" class="btn btn-success mb-3">Agregar Nuevo</a>
+<a href="empleados?accion=nuevo" class="btn btn-success mb-3">Agregar Nuevo</a>
 
 <table class="table table-striped">
     <thead>
@@ -34,8 +34,8 @@
             <td>${emp.usuario}</td>
             <td>${emp.numeroTelefono}</td>
             <td>
-                <a href="EmpleadoServlet?accion=Editar&id=${emp.idEmpleado}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="EmpleadoServlet?accion=Eliminar&id=${emp.idEmpleado}"
+                <a href="empleados?accion=editar&id=${emp.idEmpleado}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="empleados?accion=eliminar&id=${emp.idEmpleado}"
                    class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">Eliminar</a>
             </td>
         </tr>

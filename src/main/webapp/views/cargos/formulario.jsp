@@ -30,7 +30,7 @@
                     }
 
                     try {
-                        const res = await axios.post("/RRHH-DonBosco/cargos/nuevo", datosFormulario);
+                        const res = await axios.post("${pageContext.request.contextPath}/cargos?accion=guardar", datosFormulario);
                         iziToast.success({
                             title: 'OK',
                             message: 'Cargo guardado'
@@ -158,7 +158,7 @@
         <div class="contenido">
             <div>
                 <h1 class="titulo">
-                    <a href="/RRHH-DonBosco/cargos">
+                    <a href="${pageContext.request.contextPath}/cargos?accion=listar">
                         <i class="fa-whiteboard fa-semibold fa-circle-arrow-left"></i> Volver
                     </a>
                     <span>

@@ -40,7 +40,7 @@ public class DepartamentoServlet extends HttpServlet {
 
     private void listar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-System.out.println("ENTRO AL METODO LISTAR DEL SERVLET");
+        System.out.println("ENTRO AL METODO LISTAR DEL SERVLET");
         List<Departamento> lista = departamentoDAO.listarDepartamentos();
 
         request.setAttribute("departamentos", lista);

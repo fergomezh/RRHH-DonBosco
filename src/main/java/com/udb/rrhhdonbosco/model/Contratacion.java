@@ -8,7 +8,7 @@ public class Contratacion {
     private int idDepartamento;
     private int idEmpleado;
     private int idCargo;
-    private int idtipoContratacion;
+    private int idTipoContratacion;
     private LocalDate fechaContratacion;
     private BigDecimal salario;
     private boolean estado;
@@ -16,13 +16,13 @@ public class Contratacion {
     public Contratacion() {}
 
     public Contratacion(int idContratacion, int idDepartamento, int idEmpleado, int idCargo,
-                        int idtipoContratacion,
+                        int idTipoContratacion,
                         LocalDate fechaContratacion, BigDecimal salario, boolean estado) {
         this.idContratacion = idContratacion;
         this.idDepartamento = idDepartamento;
         this.idEmpleado = idEmpleado;
         this.idCargo = idCargo;
-        this.idtipoContratacion = idtipoContratacion;
+        this.idTipoContratacion = idTipoContratacion;
         this.fechaContratacion = fechaContratacion;
         this.salario = salario;
         this.estado = estado;
@@ -60,12 +60,12 @@ public class Contratacion {
         this.idCargo = idCargo;
     }
 
-    public int getIdtipoContratacion() {
-        return idtipoContratacion;
+    public int getIdTipoContratacion() {
+        return idTipoContratacion;
     }
 
-    public void setIdtipoContratacion(int idtipoContratacion) {
-        this.idtipoContratacion = idtipoContratacion;
+    public void setIdTipoContratacion(int idTipoContratacion) {
+        this.idTipoContratacion = idTipoContratacion;
     }
 
     public LocalDate getFechaContratacion() {
@@ -84,11 +84,11 @@ public class Contratacion {
         this.salario = salario;
     }
 
-    public Boolean getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 }

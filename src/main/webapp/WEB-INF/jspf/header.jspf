@@ -154,7 +154,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/departamentos?accion=listar">
+            <a class="nav-link" href="${pageContext.request.contextPath}/departamento?accion=listar">
                 <i class="fas fa-building"></i> Departamentos
             </a>
         </li>

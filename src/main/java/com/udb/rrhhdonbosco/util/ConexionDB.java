@@ -15,7 +15,7 @@ public class ConexionDB {
     /* Usuario de la base de datos */
     private static final String USUARIO  = "root";
     /* Contraseña de la base de datos */
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "verystrongpassword12";
 
     private ConexionDB() {}
 

@@ -5,8 +5,6 @@ package com.udb.rrhhdonbosco.model;
  * Mapea la tabla 'TipoContratacion' del modelo relacional.
  */
 public class TipoContratacion {
-    private int idTipoContratacion;
-
     /* Identificador único del tipo de contratación */
     private int idTipoContratacion;
 
@@ -15,28 +13,6 @@ public class TipoContratacion {
 
     public TipoContratacion() {}
 
-    public TipoContratacion(int idTipoContratacion, String tipoContratacion) {
-        this.idTipoContratacion = idTipoContratacion;
-        this.tipoContratacion = tipoContratacion;
-    }
-
-    public int getIdTipoContratacion() {
-        return idTipoContratacion;
-    }
-
-    public void setIdTipoContratacion(int idTipoContratacion) {
-        this.idTipoContratacion = idTipoContratacion;
-    }
-
-    public String getTipoContratacion() {
-        return tipoContratacion;
-    }
-
-    public void setTipoContratacion(String tipoContratacion) {
-        this.tipoContratacion = tipoContratacion;
-    /*
-     * Constructor completo.
-     */
     public TipoContratacion(int idTipoContratacion, String tipoContratacion) {
         this.idTipoContratacion = idTipoContratacion;
         this.tipoContratacion   = tipoContratacion;

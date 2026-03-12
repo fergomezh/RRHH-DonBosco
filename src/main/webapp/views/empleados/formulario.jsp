@@ -17,10 +17,10 @@
         <h3>${empleado.idEmpleado != 0 ? "Editar Empleado" : "Nuevo Empleado"}</h3>
     </div>
     <div class="card-body">
-        <form action="EmpleadoServlet" method="POST">
+        <form action="${pageContext.request.contextPath}/empleados" method="POST">
             <input type="hidden" name="id" value="${empleado.idEmpleado}">
 
-            <input type="hidden" name="accion" value="${empleado.idEmpleado != 0 ? 'Actualizar' : 'Insertar'}">
+            <input type="hidden" name="accion" value="${empleado.idEmpleado != 0 ? 'actualizar' : 'insertar'}">
 
             <div class="mb-3">
                 <label>DUI (00000000-0):</label>
@@ -48,7 +48,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Guardar Datos</button>
-            <a href="EmpleadoServlet?accion=Listar" class="btn btn-secondary">Cancelar</a>
+            <a href="${pageContext.request.contextPath}/empleados?accion=listar" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </div>
