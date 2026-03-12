@@ -11,11 +11,11 @@ import java.sql.SQLException;
 public class ConexionDB {
 
     /* URL de conexión a la base de datos MySQL */
-    private static final String URL      = "jdbc:mysql://localhost:3306/db_rrhh_donbosco?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String URL      = "jdbc:mysql://localhost:3307/db_rrhh_donbosco?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     /* Usuario de la base de datos */
     private static final String USUARIO  = "root";
     /* Contraseña de la base de datos */
-    private static final String PASSWORD = "verystrongpassword12";
+    private static final String PASSWORD = "";
 
     private ConexionDB() {}
 
