@@ -1,16 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fergo
-  Date: 27/2/2026
-  Time: 18:50
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 
+</div><!-- /page-container -->
+</div><!-- /main-content -->
+
+<footer class="text-center py-3" style="margin-left:260px; background:#fff; border-top:1px solid #e9ecef;">
+    <small class="text-muted">
+        &copy; 2025 Universidad Don Bosco &mdash; Sistema de Gestión de Recurso Humano
+    </small>
+</footer>
+
+<!-- Bootstrap 5 JS + jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Validaciones del cliente -->
 </body>
 </html>

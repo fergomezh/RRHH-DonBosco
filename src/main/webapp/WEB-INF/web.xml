@@ -3,4 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+    <servlet>
+        <servlet-name>ContratacionServlet</servlet-name>
+        <servlet-class>com.udb.rrhhdonbosco.controller.ContratacionServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ContratacionServlet</servlet-name>
+        <url-pattern>/contrataciones/*</url-pattern>
+    </servlet-mapping>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jspf</url-pattern>
+            <el-ignored>false</el-ignored>
+            <page-encoding>UTF-8</page-encoding>
+            <is-xml>false</is-xml>
+        </jsp-property-group>
+    </jsp-config>
+
 </web-app>
