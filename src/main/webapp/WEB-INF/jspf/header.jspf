@@ -1,16 +1,208 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fergo
-  Date: 27/2/2026
-  Time: 18:49
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${not empty titulo ? titulo : 'Sistema RRHH'} - UDB</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <style>
+        :root {
+            --udb-primary:   #1a3a5c;
+            --udb-secondary: #2e86c1;
+            --udb-accent:    #f39c12;
+        }
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+
+        /* Barra lateral */
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--udb-primary) 0%, #0d2137 100%);
+            width: 260px;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1000;
+            box-shadow: 3px 0 15px rgba(0,0,0,0.2);
+        }
+        .sidebar .brand {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        .sidebar .brand h5 { color: #fff; font-weight: 700; margin: 0; font-size: 1rem; }
+        .sidebar .brand small { color: rgba(255,255,255,0.6); font-size: 0.75rem; }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.75);
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            margin: 0.2rem 0.75rem;
+            transition: all 0.2s;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            color: #fff;
+            background: rgba(255,255,255,0.15);
+        }
+        .sidebar .nav-link i { width: 20px; text-align: center; margin-right: 0.5rem; }
+        .sidebar .nav-section {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1rem 1.25rem 0.3rem;
+            font-weight: 600;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            margin-left: 260px;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .top-bar {
+            background: #fff;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+        .page-container { padding: 1.5rem; }
+
+        /* Tarjetas del dashboard */
+        .stat-card {
+            border: none;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            color: white;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-3px); }
+        .stat-card .icon { font-size: 2.5rem; opacity: 0.8; }
+        .stat-card .number { font-size: 2rem; font-weight: 700; }
+
+        /* Tablas */
+        .table-card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .table-card .card-header {
+            background: var(--udb-primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+        }
+        .table thead th {
+            background: #f8f9fa;
+            border-top: none;
+            font-weight: 600;
+            color: var(--udb-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-action { padding: 0.25rem 0.6rem; font-size: 0.8rem; }
+
+        /* Formularios */
+        .form-card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+        .form-card .card-header {
+            background: var(--udb-primary);
+            color: white;
+            border-radius: 1rem 1rem 0 0 !important;
+        }
+        .form-label { font-weight: 500; color: #495057; }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--udb-secondary);
+            box-shadow: 0 0 0 0.2rem rgba(46,134,193,0.25);
+        }
+        .btn-primary { background: var(--udb-secondary); border-color: var(--udb-secondary); }
+        .btn-primary:hover { background: var(--udb-primary); border-color: var(--udb-primary); }
+
+        /* Badges de estado */
+        .badge-activo   { background-color: #198754; }
+        .badge-inactivo { background-color: #6c757d; }
+    </style>
 </head>
 <body>
+<!-- ====== BARRA LATERAL ====== -->
+<nav class="sidebar">
+    <div class="brand">
+        <i class="fas fa-university fa-2x text-white mb-2"></i>
+        <h5>Sistema RRHH</h5>
+        <small>Universidad Don Bosco</small>
+    </div>
+    <ul class="nav flex-column mt-2">
+        <li class="nav-section">Principal</li>
+        <li class="nav-item">
+            <a class="nav-link ${pageContext.request.servletPath == '/views/index.jsp' ? 'active' : ''}"
+               href="${pageContext.request.contextPath}/dashboard">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+        </li>
+        <li class="nav-section">Catálogos</li>
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/empleados?accion=listar">
+                <i class="fas fa-users"></i> Empleados
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/departamentos?accion=listar">
+                <i class="fas fa-building"></i> Departamentos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/cargos?accion=listar">
+                <i class="fas fa-briefcase"></i> Cargos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/tipocontratacion?accion=listar">
+                <i class="fas fa-file-contract"></i> Tipos Contratacion
+            </a>
+        </li>
+        <li class="nav-section">Operaciones</li>
+        <li class="nav-item">
+            <a class="nav-link" href="contrataciones/lista">
+                <i class="fas fa-handshake"></i> Contrataciones
+            </a>
+        </li>
+    </ul>
+</nav>
 
-</body>
-</html>
+<!-- ====== CONTENIDO PRINCIPAL ====== -->
+<div class="main-content">
+    <div class="top-bar d-flex justify-content-between align-items-center">
+        <h4 class="mb-0 fw-bold text-dark">
+            <c:if test="${not empty titulo}">${titulo}</c:if>
+        </h4>
+        <span class="text-muted small">
+            <i class="fas fa-clock me-1"></i> Sistema de Gestion de Recurso Humano
+        </span>
+    </div>
+    <div class="page-container">
+
+        <!-- Mostrar mensajes de éxito o error desde la sesión -->
+        <c:if test="${not empty sessionScope.mensaje}">
+        <div class="alert ${sessionScope.mensaje.exito ? 'alert-success' : 'alert-danger'} alert-dismissible fade show" role="alert">
+            <i class="fas ${sessionScope.mensaje.exito ? 'fa-check-circle' : 'fa-exclamation-circle'} me-2"></i>
+                ${sessionScope.mensaje.mensaje}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+            <c:remove var="mensaje" scope="session"/>
+        </c:if>
+
+        <!-- Mostrar error de atributo de request -->
+        <c:if test="${not empty error}">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <i class="fas fa-exclamation-circle me-2"></i>${error}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        </c:if>
