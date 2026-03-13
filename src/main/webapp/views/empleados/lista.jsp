@@ -1,46 +1,132 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fergo
-  Date: 27/2/2026
-  Time: 18:53
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Lista de Empleados</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body class="container mt-5">
-<h2>Gestión de Empleados</h2>
-<a href="empleados?accion=nuevo" class="btn btn-success mb-3">Agregar Nuevo</a>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>DUI</th>
-        <th>Nombre</th>
-        <th>Usuario</th>
-        <th>Teléfono</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="emp" items="${lista}">
-        <tr>
-            <td>${emp.numeroDui}</td>
-            <td>${emp.nombrePersona}</td>
-            <td>${emp.usuario}</td>
-            <td>${emp.numeroTelefono}</td>
-            <td>
-                <a href="empleados?accion=editar&id=${emp.idEmpleado}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="empleados?accion=eliminar&id=${emp.idEmpleado}"
-                   class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">Eliminar</a>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-</body>
-</html>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="${pageContext.request.contextPath}/dashboard">Inicio</a>
+            </li>
+            <li class="breadcrumb-item active">Empleados</li>
+        </ol>
+    </nav>
+
+
+    <a href="${pageContext.request.contextPath}/empleados?accion=nuevo"
+       class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Nuevo Empleado
+    </a>
+</div>
+
+<div class="card table-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">
+            <i class="fas fa-users me-2"></i>Empleados
+        </h6>
+        <span class="badge bg-light text-dark">
+            ${lista.size()} registros
+        </span>
+    </div>
+
+    <div class="card-body p-0">
+        <c:choose>
+            <c:when test="${empty lista}">
+                <div class="text-center py-5 text-muted">
+                    <i class="fas fa-users fa-3x mb-3 opacity-25"></i>
+                    <p>No hay empleados registrados.</p>
+                </div>
+            </c:when>
+
+            <c:otherwise>
+                <table class="table table-hover mb-0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>DUI</th>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="emp" items="${lista}" varStatus="st">
+                        <tr>
+                            <td class="text-muted small">${st.count}</td>
+
+                            <td>
+                                <i class="fas fa-id-card me-2 text-primary"></i>
+                                    ${emp.numeroDui}
+                            </td>
+
+                            <td>${emp.nombrePersona}</td>
+
+                            <td>
+                                <span class="badge bg-info text-dark">@${emp.usuario}</span>
+                            </td>
+
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty emp.numeroTelefono}">
+                                        <i class="fas fa-phone me-1 text-muted"></i>${emp.numeroTelefono}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="text-muted">—</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty emp.correoInstitucional}">
+                                        <i class="fas fa-envelope me-1 text-muted"></i>${emp.correoInstitucional}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="text-muted">—</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
+                            <td class="text-center">
+
+                                <a href="${pageContext.request.contextPath}/empleados?accion=editar&id=${emp.idEmpleado}"
+                                   class="btn btn-sm btn-warning btn-action me-1"
+                                   title="Editar empleado">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+
+                                <a href="${pageContext.request.contextPath}/empleados?accion=eliminar&id=${emp.idEmpleado}"
+                                   class="btn btn-sm btn-danger btn-action confirmar-eliminar"
+                                   data-nombre="${emp.nombrePersona}"
+                                   title="Eliminar empleado">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const eliminarBtns = document.querySelectorAll('.confirmar-eliminar');
+        eliminarBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const nombre = this.dataset.nombre;
+                if (confirm('¿Está seguro de eliminar al empleado "' + nombre + '"?')) {
+                    window.location.href = this.href;
+                }
+            });
+        });
+    });
+</script>
+
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>
