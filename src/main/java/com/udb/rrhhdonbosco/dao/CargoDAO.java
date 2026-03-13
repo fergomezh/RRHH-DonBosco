@@ -43,7 +43,7 @@ public class CargoDAO {
 }
 
     public ArrayList<Cargo> listaDeCargos() {
-        String sql = "SELECT * FROM Cargos ORDER BY idCargo DESC";
+        String sql = "SELECT * FROM Cargos ORDER BY idCargo ASC";
         ArrayList<Cargo> lista = new ArrayList<>();
 
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {

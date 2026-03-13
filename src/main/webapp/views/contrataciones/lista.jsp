@@ -102,7 +102,8 @@
                                 </a>
 
                                 <a href="${pageContext.request.contextPath}/contrataciones?accion=eliminar&id=${c.idContratacion}"
-                                   class="btn btn-sm btn-danger confirmar-eliminar">
+                                   class="btn btn-sm btn-danger confirmar-eliminar"
+                                   data-nombre="${c.nombreEmpleado}">
                                     <i class="fas fa-trash"></i>
                                 </a>
 

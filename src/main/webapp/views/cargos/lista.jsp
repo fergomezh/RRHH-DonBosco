@@ -117,19 +117,5 @@
 
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const eliminarBtns = document.querySelectorAll('.confirmar-eliminar');
-        eliminarBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const nombre = this.dataset.nombre;
-                if (confirm('¿Está seguro de eliminar el cargo "' + nombre + '"?')) {
-                    window.location.href = this.href;
-                }
-            });
-        });
-    });
-</script>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
