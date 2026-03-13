@@ -8,7 +8,7 @@
             <a href="${pageContext.request.contextPath}/dashboard">Inicio</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="${pageContext.request.contextPath}/contrataciones/lista">
+            <a href="${pageContext.request.contextPath}/contrataciones?accion=listar">
                 Contrataciones
             </a>
         </li>
@@ -26,105 +26,100 @@
             </div>
 
             <div class="card-body p-4">
-                <!-- Mostrar mensaje de error si existe -->
-                <c:if test="${not empty error}">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-triangle me-2"></i>${error}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </c:if>
 
                 <form method="post"
-                      action="${pageContext.request.contextPath}/contrataciones/guardar"
+                      action="${pageContext.request.contextPath}/contrataciones?accion=guardar"
                       novalidate>
 
-                    <input type="hidden" name="accion" value="guardar">
-
-                    <c:if test="${not empty contratacion}">
-                        <c:if test="${contratacion.idContratacion > 0}">
-                            <input type="hidden"
-                                   name="idContratacion"
-                                   value="${contratacion.idContratacion}">
-                        </c:if>
+                    <c:if test="${not empty contratacion and contratacion.idContratacion > 0}">
+                        <input type="hidden" name="idContratacion" value="${contratacion.idContratacion}">
                     </c:if>
 
-                    <!-- DEPARTAMENTOS -->
+                    <%-- EMPLEADO --%>
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label for="idEmpleado" class="form-label">
+                            Empleado <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" id="idEmpleado" name="idEmpleado" required>
+                            <option value="">Seleccione un empleado</option>
+                            <c:forEach var="emp" items="${empleados}">
+                                <option value="${emp.idEmpleado}"
+                                    ${contratacion.idEmpleado == emp.idEmpleado ? 'selected' : ''}>
+                                    ${emp.nombrePersona}
+                                </option>
+                            </c:forEach>
+                        </select>
+                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                    </div>
+
+                    <%-- DEPARTAMENTO --%>
+                    <div class="mb-3">
+                        <label for="idDepartamento" class="form-label">
                             Departamento <span class="text-danger">*</span>
                         </label>
                         <select class="form-select" id="idDepartamento" name="idDepartamento" required>
                             <option value="">Seleccione un departamento</option>
-                            <c:forEach var="depto" items="${departamentos}" varStatus="status">
-                                <option value="${status.index + 1}"
-                                        <c:if test="${not empty contratacion and contratacion.idDepartamento == status.index + 1}">selected</c:if>>
-                                    ${depto}
+                            <c:forEach var="depto" items="${departamentos}">
+                                <option value="${depto.idDepartamento}"
+                                    ${contratacion.idDepartamento == depto.idDepartamento ? 'selected' : ''}>
+                                    ${depto.nombreDepartamento}
                                 </option>
                             </c:forEach>
                         </select>
+                        <div class="invalid-feedback">Este campo es obligatorio.</div>
                     </div>
 
-                    <!-- PUESTOS (antes era Empleado) -->
+                    <%-- CARGO --%>
                     <div class="mb-3">
-                        <label class="form-label">
-                            Puesto <span class="text-danger">*</span>
+                        <label for="idCargo" class="form-label">
+                            Cargo <span class="text-danger">*</span>
                         </label>
-                        <select id="idEmpleado" name="idEmpleado" class="form-select" required>
-                            <option value="">Seleccione un puesto</option>
-                            <c:forEach var="puesto" items="${puestos}" varStatus="status">
-                                <option value="${status.index + 1}"
-                                        <c:if test="${not empty contratacion and contratacion.idEmpleado == status.index + 1}">selected</c:if>>
-                                    ${puesto}
+                        <select class="form-select" id="idCargo" name="idCargo" required>
+                            <option value="">Seleccione un cargo</option>
+                            <c:forEach var="cargo" items="${cargos}">
+                                <option value="${cargo.idCargo}"
+                                    ${contratacion.idCargo == cargo.idCargo ? 'selected' : ''}>
+                                    ${cargo.cargoNombre}
                                 </option>
                             </c:forEach>
                         </select>
+                        <div class="invalid-feedback">Este campo es obligatorio.</div>
                     </div>
 
-                    <!-- MODALIDADES (antes era Cargo) -->
+                    <%-- TIPO DE CONTRATACIÓN --%>
                     <div class="mb-3">
-                        <label class="form-label">
-                            Modalidad <span class="text-danger">*</span>
-                        </label>
-                        <select id="idCargo" name="idCargo" class="form-select" required>
-                            <option value="">Seleccione modalidad</option>
-                            <c:forEach var="modalidad" items="${modalidades}" varStatus="status">
-                                <option value="${status.index + 1}"
-                                        <c:if test="${not empty contratacion and contratacion.idCargo == status.index + 1}">selected</c:if>>
-                                    ${modalidad}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-
-                    <!-- TIPO DE CONTRATACIÓN (NUEVO) -->
-                    <div class="mb-3">
-                        <label class="form-label">
+                        <label for="idTipoContratacion" class="form-label">
                             Tipo de Contratación <span class="text-danger">*</span>
                         </label>
-                        <select id="idTipoContratacion" name="idTipoContratacion" class="form-select" required>
-                            <option value="">Seleccione un tipo de contratación</option>
-                            <c:forEach var="tipo" items="${tipos}" varStatus="status">
-                                <option value="${status.index + 1}">${tipo}</option>
+                        <select class="form-select" id="idTipoContratacion" name="idTipoContratacion" required>
+                            <option value="">Seleccione un tipo</option>
+                            <c:forEach var="tipo" items="${tipos}">
+                                <option value="${tipo.idTipoContratacion}"
+                                    ${contratacion.idTipoContratacion == tipo.idTipoContratacion ? 'selected' : ''}>
+                                    ${tipo.tipoContratacion}
+                                </option>
                             </c:forEach>
                         </select>
+                        <div class="invalid-feedback">Este campo es obligatorio.</div>
                     </div>
 
-                    <!-- FECHA DE CONTRATACIÓN -->
+                    <%-- FECHA DE CONTRATACIÓN --%>
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label for="fechaContratacion" class="form-label">
                             Fecha de Contratación <span class="text-danger">*</span>
                         </label>
                         <input type="date"
+                               class="form-control"
                                id="fechaContratacion"
                                name="fechaContratacion"
-                               class="form-control"
                                value="${not empty contratacion ? contratacion.fechaContratacion : ''}"
                                required>
+                        <div class="invalid-feedback">Este campo es obligatorio.</div>
                     </div>
 
-                    <!-- SALARIO -->
+                    <%-- SALARIO --%>
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label for="salario" class="form-label">
                             Salario <span class="text-danger">*</span>
                         </label>
                         <div class="input-group">
@@ -132,39 +127,38 @@
                             <input type="number"
                                    step="0.01"
                                    min="0"
+                                   class="form-control"
                                    id="salario"
                                    name="salario"
-                                   class="form-control"
                                    value="${not empty contratacion ? contratacion.salario : ''}"
                                    placeholder="0.00"
                                    required>
                         </div>
+                        <div class="invalid-feedback">Este campo es obligatorio.</div>
                     </div>
 
-                    <!-- ESTADO DEL PROCESO -->
+                    <%-- ESTADO --%>
                     <div class="mb-4">
-                        <label class="form-label">
-                            Estado del Proceso
-                        </label>
-                        <select name="estado" class="form-select">
-                            <option value="">Seleccione estado</option>
-                            <c:forEach var="estadoItem" items="${estados}">
-                                <option value="${estadoItem}"
-                                        <c:if test="${not empty contratacion and contratacion.estado == estadoItem}">selected</c:if>>
-                                    ${estadoItem}
-                                </option>
-                            </c:forEach>
-                        </select>
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="estado"
+                                   name="estado"
+                                   ${contratacion.estado ? 'checked' : ''}>
+                            <label class="form-check-label" for="estado">
+                                Contratación activa
+                            </label>
+                        </div>
                     </div>
 
-                    <!-- BOTONES -->
+                    <%-- BOTONES --%>
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-2"></i>Guardar Contratación
+                            <i class="fas fa-save me-2"></i>Guardar
                         </button>
-                        <a href="${pageContext.request.contextPath}/contrataciones/lista"
+                        <a href="${pageContext.request.contextPath}/contrataciones?accion=listar"
                            class="btn btn-outline-secondary">
-                            <i class="fas fa-times me-2"></i>Cancelar
+                            <i class="fas fa-arrow-left me-2"></i>Cancelar
                         </a>
                     </div>
 
@@ -175,5 +169,3 @@
 </div>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
-
-<script src="${pageContext.request.contextPath}/assets/js/validaciones.js"></script>

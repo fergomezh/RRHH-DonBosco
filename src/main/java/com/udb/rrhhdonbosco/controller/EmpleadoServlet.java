@@ -27,11 +27,13 @@ public class EmpleadoServlet extends HttpServlet {
             case "listar":
                 List<Empleado> lista = dao.findAll();
                 request.setAttribute("lista", lista);
+                request.setAttribute("titulo", "Empleados");
                 request.getRequestDispatcher("/views/empleados/lista.jsp").forward(request, response);
                 break;
 
             case "nuevo":
                 request.setAttribute("empleado", new Empleado());
+                request.setAttribute("titulo", "Nuevo Empleado");
                 request.getRequestDispatcher("/views/empleados/formulario.jsp").forward(request, response);
                 break;
 
@@ -44,6 +46,7 @@ public class EmpleadoServlet extends HttpServlet {
                 int idEdit = Integer.parseInt(request.getParameter("id"));
                 Empleado emp = dao.findById(idEdit);
                 request.setAttribute("empleado", emp);
+                request.setAttribute("titulo", "Editar Empleado");
                 request.getRequestDispatcher("/views/empleados/formulario.jsp").forward(request, response);
                 break;
 
@@ -89,5 +92,3 @@ public class EmpleadoServlet extends HttpServlet {
         processRequest(request, response);
     }
 }
-
-

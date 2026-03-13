@@ -5,7 +5,9 @@ import com.udb.rrhhdonbosco.util.ConexionDB;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContratacionDAO {
 
@@ -125,7 +127,48 @@ public class ContratacionDAO {
         return lista;
     }
 
-    /**
+    /*
+     * Lista todas las contrataciones con nombres (JOIN)
+     */
+    public List<Map<String, Object>> listarConDetalles() throws SQLException {
+        String sql =
+            "SELECT c.idContratacion, " +
+            "       e.nombrePersona, " +
+            "       d.nombreDepartamento, " +
+            "       ca.cargo AS nombreCargo, " +
+            "       tc.tipoContratacion AS nombreTipoContratacion, " +
+            "       c.fechaContratacion, c.salario, c.estado " +
+            "FROM Contrataciones c " +
+            "JOIN empleados        e  ON c.idEmpleado        = e.idEmpleado " +
+            "JOIN Departamento     d  ON c.idDepartamento     = d.idDepartamento " +
+            "JOIN Cargos           ca ON c.idCargo            = ca.idCargo " +
+            "JOIN TipoContratacion tc ON c.idTipoContratacion = tc.idTipoContratacion " +
+            "ORDER BY c.fechaContratacion DESC";
+
+        List<Map<String, Object>> lista = new ArrayList<>();
+
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Map<String, Object> fila = new HashMap<>();
+                fila.put("idContratacion", rs.getInt("idContratacion"));
+                fila.put("nombreEmpleado", rs.getString("nombrePersona"));
+                fila.put("nombreDepartamento", rs.getString("nombreDepartamento"));
+                fila.put("nombreCargo", rs.getString("nombreCargo"));
+                fila.put("nombreTipoContratacion", rs.getString("nombreTipoContratacion"));
+                fila.put("fechaContratacion", rs.getDate("fechaContratacion").toLocalDate());
+                fila.put("salario", rs.getBigDecimal("salario"));
+                fila.put("estado", rs.getBoolean("estado"));
+                lista.add(fila);
+            }
+        }
+
+        return lista;
+    }
+
+    /*
      * Método auxiliar para mapear ResultSet a objeto Contratacion
      */
     private Contratacion mapearContratacion(ResultSet rs) throws SQLException {

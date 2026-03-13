@@ -65,6 +65,32 @@ public class CargoDAO {
         }
     }
     
+    public Cargo obtenerPorId(int idCargo) {
+        String sql = "SELECT * FROM Cargos WHERE idCargo = ?";
+
+        try (Connection conn = ConexionDB.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idCargo);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Cargo c = new Cargo();
+                    c.setIdCargo(rs.getInt("idCargo"));
+                    c.setCargoNombre(rs.getString("cargo"));
+                    c.setCargoDescripcion(rs.getString("descripcionCargo"));
+                    c.setCargoJefatura(rs.getBoolean("jefatura"));
+                    return c;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error obteniendo cargo por id", e);
+        }
+
+        return null;
+    }
+
     public int eliminarCargo(int idCargo) {
     String sql = "DELETE FROM Cargos WHERE idCargo = ?";
 

@@ -12,7 +12,7 @@
         </ol>
     </nav>
 
-    <a href="${pageContext.request.contextPath}/contrataciones/formulario" class="btn btn-primary">
+    <a href="${pageContext.request.contextPath}/contrataciones?accion=nuevo" class="btn btn-primary">
         <i class="fas fa-plus me-2"></i>Ingresar Contratación
     </a>
 </div>
@@ -68,13 +68,13 @@
 
                             <td class="text-muted small">${st.count}</td>
 
-                            <td>${c.empleado}</td>
+                            <td>${c.nombreEmpleado}</td>
 
-                            <td>${c.departamento}</td>
+                            <td>${c.nombreDepartamento}</td>
 
-                            <td>${c.cargo}</td>
+                            <td>${c.nombreCargo}</td>
 
-                            <td>${c.tipoContratacion}</td>
+                            <td>${c.nombreTipoContratacion}</td>
 
                             <td>${c.fechaContratacion}</td>
 
@@ -96,12 +96,12 @@
 
                             <td class="text-center">
 
-                                <a href="${pageContext.request.contextPath}/contrataciones/editar?id=${c.idContratacion}"
+                                <a href="${pageContext.request.contextPath}/contrataciones?accion=editar&id=${c.idContratacion}"
                                    class="btn btn-sm btn-warning me-1">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                <a href="${pageContext.request.contextPath}/contrataciones/eliminar?id=${c.idContratacion}"
+                                <a href="${pageContext.request.contextPath}/contrataciones?accion=eliminar&id=${c.idContratacion}"
                                    class="btn btn-sm btn-danger confirmar-eliminar">
                                     <i class="fas fa-trash"></i>
                                 </a>
