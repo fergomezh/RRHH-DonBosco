@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.udb.rrhhdonbosco.dao.CargoDAO;
 import com.udb.rrhhdonbosco.model.Cargo;
 
+import com.udb.rrhhdonbosco.util.Validador;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -108,6 +109,15 @@ public class CargoServlet extends HttpServlet {
         String nombre = request.getParameter("cargoNombre");
         String descripcion = request.getParameter("cargoDescripcion");
         boolean jefatura = request.getParameter("cargoJefatura") != null;
+
+        //VALIDACION
+        if (!Validador.esTextoValido(nombre)) {
+            request.setAttribute("error", "El nombre del cargo es obligatorio.");
+
+            Cargo cargo = new Cargo(nombre, descripcion, jefatura);
+            mostrarFormulario(request, response, cargo);
+            return;
+        }
 
         Cargo cargo = new Cargo(nombre, descripcion, jefatura);
 
