@@ -139,7 +139,7 @@ public class ContratacionDAO {
             "       tc.tipoContratacion AS nombreTipoContratacion, " +
             "       c.fechaContratacion, c.salario, c.estado " +
             "FROM Contrataciones c " +
-            "JOIN empleados        e  ON c.idEmpleado        = e.idEmpleado " +
+            "JOIN Empleados        e  ON c.idEmpleado        = e.idEmpleado " +
             "JOIN Departamento     d  ON c.idDepartamento     = d.idDepartamento " +
             "JOIN Cargos           ca ON c.idCargo            = ca.idCargo " +
             "JOIN TipoContratacion tc ON c.idTipoContratacion = tc.idTipoContratacion " +

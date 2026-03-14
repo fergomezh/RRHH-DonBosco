@@ -10,7 +10,7 @@ import java.util.List;
 public class EmpleadoDAO {
 
     public boolean insert(Empleado empleado) {
-        String sql = "INSERT INTO empleados (numeroDui, nombrePersona, usuario, numeroTelefono, " +
+        String sql = "INSERT INTO Empleados (numeroDui, nombrePersona, usuario, numeroTelefono, " +
                 "correoInstitucional, fechaNacimiento) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection con = ConexionDB.getConnection();
@@ -37,7 +37,7 @@ public class EmpleadoDAO {
     }
 
     public boolean update(Empleado empleado) {
-        String sql = "UPDATE empleados SET numeroDui=?, nombrePersona=?, usuario=?, numeroTelefono=?, " +
+        String sql = "UPDATE Empleados SET numeroDui=?, nombrePersona=?, usuario=?, numeroTelefono=?, " +
                 "correoInstitucional=?, fechaNacimiento=? WHERE idEmpleado=?";
 
         try (Connection con = ConexionDB.getConnection();
@@ -66,7 +66,7 @@ public class EmpleadoDAO {
     }
 
     public boolean delete(int idEmpleado) {
-        String sql = "DELETE FROM empleados WHERE idEmpleado=?";
+        String sql = "DELETE FROM Empleados WHERE idEmpleado=?";
 
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -82,7 +82,7 @@ public class EmpleadoDAO {
 
     public List<Empleado> findAll() {
         List<Empleado> lista = new ArrayList<>();
-        String sql = "SELECT * FROM empleados";
+        String sql = "SELECT * FROM Empleados";
 
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -110,7 +110,7 @@ public class EmpleadoDAO {
     }
 
     public Empleado findById(int id) {
-        String sql = "SELECT * FROM empleados WHERE idEmpleado = ?";
+        String sql = "SELECT * FROM Empleados WHERE idEmpleado = ?";
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
